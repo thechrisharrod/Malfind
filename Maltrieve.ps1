@@ -124,9 +124,7 @@ foreach($Item in $Content){
     $arrItems += $Item.title.'#cdata-section'
 }
 
-foreach ($Object in $arrItems){
-    $ObjectPath = $Object.description.split(" ").replace(",","")[1]
-    $ObjectURL = "http://$ObjectPath"
+foreach ($ObjectURL in $arrItems){
     if($arrCompleted -notcontains $ObjectURL){
         Write-Host $ObjectURL    
         try{
