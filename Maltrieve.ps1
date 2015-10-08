@@ -8,7 +8,7 @@
 # support.clean-mx.de
 
 
-$OutputDirectory = "C:\Scripting\PoSH-Maltrieve\Output"
+$OutputDirectory = "C:\Scripting\Malfind\Output"
 
 [xml]$RSS = Invoke-WebRequest "http://malc0de.com/rss/"
 [xml]$RSS = $RSS.InnerXml
