@@ -16,9 +16,16 @@ $arrItems = $rss.rss.channel.item
 foreach ($Object in $arrItems){
     $ObjectPath = $Object.description.split(" ").replace(",","")[1]
     $ObjectURL = "http://$ObjectPath"
-    $File = Invoke-Webrequest $ObjectURL -OutFile "$OutputDirectory/temp.temp" -PassThru
-    $MD5 = (Get-FileHash $OutputDirectory/temp.temp -Algorithm MD5).Hash
-    Rename-Item $OutputDirectory/temp.temp $MD5
+    try{
+        $File = Invoke-Webrequest $ObjectURL -OutFile "$OutputDirectory/temp.temp" -PassThru
+    }
+    catch{}
+    if($File){
+        $MD5 = (Get-FileHash $OutputDirectory/temp.temp -Algorithm MD5).Hash
+        if(!(Test-Path $OutputDirectory/$MD5)){
+            Rename-Item $OutputDirectory/temp.temp $MD5
+        }
+    }
     $File = $Null
 }
 
@@ -28,9 +35,16 @@ foreach ($Object in $arrItems){
 $arrItems = $rss.rss.channel.item
 foreach ($Object in $arrItems){
     $ObjectURL = $Object.description.split(" ").replace(",","")[1]
-    $File = Invoke-Webrequest $ObjectURL -OutFile "$OutputDirectory/temp.temp" -PassThru
-    $MD5 = (Get-FileHash $OutputDirectory/temp.temp -Algorithm MD5).Hash
-    Rename-Item $OutputDirectory/temp.temp $MD5
+    try{
+        $File = Invoke-Webrequest $ObjectURL -OutFile "$OutputDirectory/temp.temp" -PassThru
+    }
+    catch{}
+    if($File){
+        $MD5 = (Get-FileHash $OutputDirectory/temp.temp -Algorithm MD5).Hash
+        if(!(Test-Path $OutputDirectory/$MD5)){
+            Rename-Item $OutputDirectory/temp.temp $MD5
+        }
+    }
     $File = $Null
 }
 
@@ -47,7 +61,7 @@ foreach ($Object in $arrItems){
     catch{}
     if($File){
         $MD5 = (Get-FileHash $OutputDirectory/temp.temp -Algorithm MD5).Hash
-        if(!(Test-Path $MD5)){
+        if(!(Test-Path $OutputDirectory/$MD5)){
             Rename-Item $OutputDirectory/temp.temp $MD5
         }
     }
@@ -70,7 +84,7 @@ foreach ($Object in $arrItems){
     catch{}
     if($File){
         $MD5 = (Get-FileHash $OutputDirectory/temp.temp -Algorithm MD5).Hash
-        if(!(Test-Path $MD5)){
+        if(!(Test-Path $OutputDirectory/$MD5)){
             Rename-Item $OutputDirectory/temp.temp $MD5
         }
     }
@@ -95,7 +109,7 @@ foreach ($Object in $arrItems){
     catch{}
     if($File){
         $MD5 = (Get-FileHash $OutputDirectory/temp.temp -Algorithm MD5).Hash
-        if(!(Test-Path $MD5)){
+        if(!(Test-Path $OutputDirectory/$MD5)){
             Rename-Item $OutputDirectory/temp.temp $MD5
         }
     }
