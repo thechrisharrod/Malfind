@@ -20,6 +20,7 @@ foreach ($Object in $arrItems){
     $ObjectPath = $Object.description.split(" ").replace(",","")[1]
     $ObjectURL = "http://$ObjectPath"
     if($arrCompleted -notcontains $ObjectURL){
+        Write-Host $ObjectURL
         try{
             $File = Invoke-Webrequest $ObjectURL -OutFile "$OutputDirectory/temp.temp" -PassThru
         }
@@ -42,6 +43,7 @@ $arrItems = $rss.rss.channel.item
 foreach ($Object in $arrItems){
     $ObjectURL = $Object.description.split(" ").replace(",","")[1]
     if($arrCompleted -notcontains $ObjectURL){
+        Write-Host $ObjectURL
         try{
             $File = Invoke-Webrequest $ObjectURL -OutFile "$OutputDirectory/temp.temp" -PassThru
         }
@@ -62,10 +64,10 @@ foreach ($Object in $arrItems){
 [xml]$RSS = $RSS.InnerXml
 $arrItems = $rss.rss.channel.item
 foreach ($Object in $arrItems){
-    
     $ObjectPath = $Object.description.split(" ").replace(",","")[1]
     $ObjectURL = "http://$ObjectPath"
     if($arrCompleted -notcontains $ObjectURL){
+        Write-Host $ObjectURL
         try{
             $File = Invoke-Webrequest $ObjectURL -OutFile "$OutputDirectory/temp.temp" -PassThru
         }
@@ -93,6 +95,7 @@ foreach ($Object in $arrItems){
     $ObjectPath = $Object.description.split(" ").replace(",","")[1]
     $ObjectURL = "http://$ObjectPath"
     if($arrCompleted -notcontains $ObjectURL){
+        Write-Host $ObjectURL
         try{
             $File = Invoke-Webrequest $ObjectURL -OutFile "$OutputDirectory/temp.temp" -PassThru
         }
@@ -122,6 +125,7 @@ foreach ($Object in $arrItems){
     $ObjectPath = $Object.description.split(" ").replace(",","")[1]
     $ObjectURL = "http://$ObjectPath"
     if($arrCompleted -notcontains $ObjectURL){
+        Write-Host $ObjectURL    
         try{
             $File = Invoke-Webrequest $ObjectURL -OutFile "$OutputDirectory/temp.temp" -PassThru
         }
