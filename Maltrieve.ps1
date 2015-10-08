@@ -13,6 +13,7 @@ $Completed = "C:\Scripting\Malfind\completed.txt"
 $arrCompleted = @()
 $arrCompleted = Get-Content $Completed
 
+Write-Host Scanning for new content on malc0de
 [xml]$RSS = Invoke-WebRequest "http://malc0de.com/rss/"
 [xml]$RSS = $RSS.InnerXml
 $arrItems = $rss.rss.channel.item
@@ -37,6 +38,7 @@ foreach ($Object in $arrItems){
     $arrCompleted += $ObjectURL
 }
 
+Write-Host Scanning for new content on Zeustracker
 [xml]$RSS = Invoke-WebRequest "https://zeustracker.abuse.ch/monitor.php?urlfeed=binaries"
 [xml]$RSS = $RSS.InnerXml
 $arrItems = $rss.rss.channel.item
@@ -60,6 +62,7 @@ foreach ($Object in $arrItems){
     $arrCompleted += $ObjectURL
 }
 
+Write-Host Scanning for new content on MalwareDomainList
 [xml]$RSS = Invoke-WebRequest "http://www.malwaredomainlist.com/hostslist/mdl.xml"
 [xml]$RSS = $RSS.InnerXml
 $arrItems = $rss.rss.channel.item
@@ -84,6 +87,7 @@ foreach ($Object in $arrItems){
     $arrCompleted += $ObjectURL
 }
 
+Write-Host Scanning for new content on VXVault
 $Content = (Invoke-WebRequest "http://vxvault.net/URL_List.php").Content.Split('')
 $arrItems = @()
 foreach($Item in $Content){
@@ -113,6 +117,7 @@ foreach ($Object in $arrItems){
 }
 
 
+Write-Host Scanning for new content on Clean-MX
 [xml]$RSS = (Invoke-WebRequest "http://support.clean-mx.de/clean-mx/rss?scope=viruses&limit=0%2C64")
 [xml]$RSS = $RSS.InnerXml
 $Content = $rss.rss.channel.item
