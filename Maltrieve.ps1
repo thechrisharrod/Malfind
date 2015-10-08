@@ -19,6 +19,7 @@ foreach ($Object in $arrItems){
     $File = Invoke-Webrequest $ObjectURL -OutFile "$OutputDirectory/temp.temp" -PassThru
     $MD5 = (Get-FileHash $OutputDirectory/temp.temp -Algorithm MD5).Hash
     Rename-Item $OutputDirectory/temp.temp $MD5
+    $File = $Null
 }
 
 
@@ -30,6 +31,7 @@ foreach ($Object in $arrItems){
     $File = Invoke-Webrequest $ObjectURL -OutFile "$OutputDirectory/temp.temp" -PassThru
     $MD5 = (Get-FileHash $OutputDirectory/temp.temp -Algorithm MD5).Hash
     Rename-Item $OutputDirectory/temp.temp $MD5
+    $File = $Null
 }
 
 [xml]$RSS = Invoke-WebRequest "http://www.malwaredomainlist.com/hostslist/mdl.xml"
