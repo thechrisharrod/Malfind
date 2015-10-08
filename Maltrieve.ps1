@@ -7,8 +7,11 @@
 # vxvault.net
 # support.clean-mx.de
 
-
 $OutputDirectory = "C:\Scripting\Malfind\Output"
+
+$Completed = "C:\Scripting\Malfind\completed.txt"
+$arrCompleted = @()
+$arrCompleted = Get-Content $Completed
 
 [xml]$RSS = Invoke-WebRequest "http://malc0de.com/rss/"
 [xml]$RSS = $RSS.InnerXml
@@ -16,36 +19,43 @@ $arrItems = $rss.rss.channel.item
 foreach ($Object in $arrItems){
     $ObjectPath = $Object.description.split(" ").replace(",","")[1]
     $ObjectURL = "http://$ObjectPath"
-    try{
-        $File = Invoke-Webrequest $ObjectURL -OutFile "$OutputDirectory/temp.temp" -PassThru
-    }
-    catch{}
-    if($File){
-        $MD5 = (Get-FileHash $OutputDirectory/temp.temp -Algorithm MD5).Hash
-        if(!(Test-Path $OutputDirectory/$MD5)){
-            Rename-Item $OutputDirectory/temp.temp $MD5
+    if($arrCompleted -notcontains $ObjectURL){
+        try{
+            $File = Invoke-Webrequest $ObjectURL -OutFile "$OutputDirectory/temp.temp" -PassThru
         }
+        catch{}
+        if($File){
+            $MD5 = (Get-FileHash $OutputDirectory/temp.temp -Algorithm MD5).Hash
+            if(!(Test-Path $OutputDirectory/$MD5)){
+                Rename-Item $OutputDirectory/temp.temp $MD5
+            }
+        }
+        $File = $Null
     }
-    $File = $Null
+    Add-Content $Completed $ObjectURL
+    $arrCompleted += $ObjectURL
 }
-
 
 [xml]$RSS = Invoke-WebRequest "https://zeustracker.abuse.ch/monitor.php?urlfeed=binaries"
 [xml]$RSS = $RSS.InnerXml
 $arrItems = $rss.rss.channel.item
 foreach ($Object in $arrItems){
     $ObjectURL = $Object.description.split(" ").replace(",","")[1]
-    try{
-        $File = Invoke-Webrequest $ObjectURL -OutFile "$OutputDirectory/temp.temp" -PassThru
-    }
-    catch{}
-    if($File){
-        $MD5 = (Get-FileHash $OutputDirectory/temp.temp -Algorithm MD5).Hash
-        if(!(Test-Path $OutputDirectory/$MD5)){
-            Rename-Item $OutputDirectory/temp.temp $MD5
+    if($arrCompleted -notcontains $ObjectURL){
+        try{
+            $File = Invoke-Webrequest $ObjectURL -OutFile "$OutputDirectory/temp.temp" -PassThru
         }
+        catch{}
+        if($File){
+            $MD5 = (Get-FileHash $OutputDirectory/temp.temp -Algorithm MD5).Hash
+            if(!(Test-Path $OutputDirectory/$MD5)){
+                Rename-Item $OutputDirectory/temp.temp $MD5
+            }
+        }
+        $File = $Null
     }
-    $File = $Null
+    Add-Content $Completed $ObjectURL
+    $arrCompleted += $ObjectURL
 }
 
 [xml]$RSS = Invoke-WebRequest "http://www.malwaredomainlist.com/hostslist/mdl.xml"
@@ -55,17 +65,21 @@ foreach ($Object in $arrItems){
     
     $ObjectPath = $Object.description.split(" ").replace(",","")[1]
     $ObjectURL = "http://$ObjectPath"
-    try{
-        $File = Invoke-Webrequest $ObjectURL -OutFile "$OutputDirectory/temp.temp" -PassThru
-    }
-    catch{}
-    if($File){
-        $MD5 = (Get-FileHash $OutputDirectory/temp.temp -Algorithm MD5).Hash
-        if(!(Test-Path $OutputDirectory/$MD5)){
-            Rename-Item $OutputDirectory/temp.temp $MD5
+    if($arrCompleted -notcontains $ObjectURL){
+        try{
+            $File = Invoke-Webrequest $ObjectURL -OutFile "$OutputDirectory/temp.temp" -PassThru
         }
+        catch{}
+        if($File){
+            $MD5 = (Get-FileHash $OutputDirectory/temp.temp -Algorithm MD5).Hash
+            if(!(Test-Path $OutputDirectory/$MD5)){
+                Rename-Item $OutputDirectory/temp.temp $MD5
+            }
+        }
+        $File = $Null
     }
-    $File = $Null
+    Add-Content $Completed $ObjectURL
+    $arrCompleted += $ObjectURL
 }
 
 $Content = (Invoke-WebRequest "http://vxvault.net/URL_List.php").Content.Split('')
@@ -78,17 +92,21 @@ foreach($Item in $Content){
 foreach ($Object in $arrItems){
     $ObjectPath = $Object.description.split(" ").replace(",","")[1]
     $ObjectURL = "http://$ObjectPath"
-    try{
-        $File = Invoke-Webrequest $ObjectURL -OutFile "$OutputDirectory/temp.temp" -PassThru
-    }
-    catch{}
-    if($File){
-        $MD5 = (Get-FileHash $OutputDirectory/temp.temp -Algorithm MD5).Hash
-        if(!(Test-Path $OutputDirectory/$MD5)){
-            Rename-Item $OutputDirectory/temp.temp $MD5
+    if($arrCompleted -notcontains $ObjectURL){
+        try{
+            $File = Invoke-Webrequest $ObjectURL -OutFile "$OutputDirectory/temp.temp" -PassThru
         }
+        catch{}
+        if($File){
+            $MD5 = (Get-FileHash $OutputDirectory/temp.temp -Algorithm MD5).Hash
+            if(!(Test-Path $OutputDirectory/$MD5)){
+                Rename-Item $OutputDirectory/temp.temp $MD5
+            }
+        }
+        $File = $Null
     }
-    $File = $Null
+    Add-Content $Completed $ObjectURL
+    $arrCompleted += $ObjectURL
 }
 
 
@@ -103,15 +121,19 @@ foreach($Item in $Content){
 foreach ($Object in $arrItems){
     $ObjectPath = $Object.description.split(" ").replace(",","")[1]
     $ObjectURL = "http://$ObjectPath"
-    try{
-        $File = Invoke-Webrequest $ObjectURL -OutFile "$OutputDirectory/temp.temp" -PassThru
-    }
-    catch{}
-    if($File){
-        $MD5 = (Get-FileHash $OutputDirectory/temp.temp -Algorithm MD5).Hash
-        if(!(Test-Path $OutputDirectory/$MD5)){
-            Rename-Item $OutputDirectory/temp.temp $MD5
+    if($arrCompleted -notcontains $ObjectURL){
+        try{
+            $File = Invoke-Webrequest $ObjectURL -OutFile "$OutputDirectory/temp.temp" -PassThru
         }
+        catch{}
+        if($File){
+            $MD5 = (Get-FileHash $OutputDirectory/temp.temp -Algorithm MD5).Hash
+            if(!(Test-Path $OutputDirectory/$MD5)){
+                Rename-Item $OutputDirectory/temp.temp $MD5
+            }
+        }
+        $File = $Null
     }
-    $File = $Null
+    Add-Content $Completed $ObjectURL
+    $arrCompleted += $ObjectURL
 }
